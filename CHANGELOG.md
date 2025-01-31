@@ -7,3 +7,15 @@
 
 # 0.4.0
   - Graphite support added with country code (rinsekloek)
+
+# 0.4.1
+  - Version bump
+
+# 0.4.2
+  - Fix processing of /etc/hosts
+
+# 0.4.3
+  - Update to new Sequel API (fixes #21)
+
+# 0.4.4
+  - InfluxDB support added

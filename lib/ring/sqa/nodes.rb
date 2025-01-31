@@ -63,6 +63,7 @@ class SQA
           ip:   ip,
           as:   json['asn'],
           cc:   json['countrycode'],
+          geo:   json['geo'],
         }
         next if CFG.host.name == node[:name]
         nodes[ip] = node
