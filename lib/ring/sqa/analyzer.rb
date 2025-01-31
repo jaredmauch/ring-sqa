@@ -17,7 +17,6 @@ class SQA
         records = records.all
         @graphite.add @db.id_range(first_id, @db_id_seen).all if @graphite
         @influxdb.add @db.id_range(first_id, @db_id_seen).all if @influxdb
-        @kafka.add @db.id_range(first_id, @db_id_seen).all if @kafka
         @buffer.push records.map { |record| record.peer }
         @buffer.exceed_median? ? @alarm.set(@buffer) : @alarm.clear(@buffer)
         delay = INTERVAL-(Time.now-start)
@@ -44,7 +43,6 @@ class SQA
       @db_id_seen = 0
       @graphite   = graphite if CFG.graphite?
       @influxdb   = influxdb if CFG.influxdb?
-      @kafka      = kafka if CFG.kafka?
     end
 
     def graphite
@@ -55,11 +53,6 @@ class SQA
     def influxdb
       require_relative 'influxdb'
       InfluxDBWriter.new @nodes
-    end
-
-    def kafka
-      require_relative 'kafka_writer'
-      KafkaWriter.new @nodes
     end
 
 
